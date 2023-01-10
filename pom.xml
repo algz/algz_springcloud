@@ -5,32 +5,37 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+		<!-- SpringBoot版本 -->
 		<version>2.7.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>com.algz.springcloud</groupId>
 	<artifactId>algz_springcloud</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>algz_springcloud</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>pom</packaging>
+	
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
+		<spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
+	
+	<!-- dependencyManagement元素管理依赖版本号,只是声明依赖，并不实现引入，子项目需要显示声明需要用的依赖.
+	子项目再次引入此依赖jar包时则无需显式的列出版本号.
+	Maven会沿着父子层级向上寻找拥有dependencyManagement 元素的项目，然后使用它指定的版本号。 -->
 	<dependencyManagement>
 		<dependencies>
+			<!-- springCloud -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -38,16 +43,22 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- nacos 管理依赖-->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring.cloud.alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
+	<!-- 子模块 -->
+	<modules>
+		<module>eureka_server</module>
+		<module>algz_server1</module>
+		<module>algz_eureka_client</module>
+		<module>algz_nacos_client1</module>
+	</modules>
 </project>
