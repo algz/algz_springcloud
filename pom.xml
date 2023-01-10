@@ -54,7 +54,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- 子模块 -->
+	<!-- 子模块1 -->
 	<modules>
 		<module>eureka_server</module>
 		<module>algz_server1</module>
